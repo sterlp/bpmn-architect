@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'bpmn-js/dist/assets/diagram-js.css';
+@import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+
+@import 'material-icons/iconfont/material-icons.scss';
+
+html, body { height: 100%; }
+body { 
+    font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+}
+
+.app-spacer {
+    flex: 1 1 auto;
+}
+
+.ml-1 {
+    margin-left: 0.25rem !important;
+}
+.mr-1 {
+    margin-right: 0.25rem !important;
+}
+
+.mat-toolbar {
+    .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+        padding-top: 24px;
+        padding-bottom: 8px;
+    }
+    .mdc-button {
+        margin-left: 0.25rem;
+    }
+}
+
+.app-action-bar {
+    .mdc-button {
+        margin-left: 0.25rem;
+    }
+}
+/*
+.mdc-icon-button ~:not(.mdc-icon-button) {
+    margin-top: -18px;
+}
+*/

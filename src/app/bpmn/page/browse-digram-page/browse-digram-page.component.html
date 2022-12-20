@@ -1,0 +1,93 @@
+
+
+<mat-toolbar>
+  BPMN Architect
+  <div class="app-spacer"></div>
+  <button mat-raised-button color="warn" (click)="doClear()">
+    Delete everything
+  </button>
+  <button mat-icon-button [disabled]="this.editElement" matTooltip="Reload" (click)="doReload()">
+    <mat-icon fontIcon="reload"></mat-icon>
+  </button>
+  <ng-container [ngTemplateOutlet]="defaultButtons">
+  </ng-container>
+  
+</mat-toolbar>
+
+<ng-template #defaultButtons let-node="node">
+  <button mat-icon-button color="primary" 
+          *ngIf="node" (click)="doEditNode(node)" 
+          matTooltip="Edit {{node.name}}" [disabled]="this.editElement">
+    <mat-icon fontIcon="edit"></mat-icon>
+  </button>
+
+  <button mat-icon-button matTooltip="Add Folder" *ngIf="isFolder(node) || !node"
+          [disabled]="this.editElement" (click)="doAddFolder(node)">
+    <mat-icon fontIcon="create_new_folder"></mat-icon>
+  </button>
+
+  <button mat-icon-button color="primary" routerLink="/diagrams/new" 
+          [queryParams]="toQueryParams(node)" matTooltip="Add Diagram" 
+          [disabled]="this.editElement" *ngIf="isFolder(node) || !node" >
+    <mat-icon fontIcon="add_chart"></mat-icon>
+  </button>
+  <button mat-icon-button [disabled]="this.editElement" 
+          *ngIf="node && node.source?.id" color="warn" 
+          (click)="doDelete(node)"
+          matTooltip="Delete {{ node.name }}">
+    <mat-icon fontIcon="delete"></mat-icon>
+  </button>
+
+  <ng-content></ng-content>
+</ng-template>
+
+<ng-template #nameAndDate let-node="node">
+  <app-bpmn-element-icon class="mr-1" [element]="node"></app-bpmn-element-icon>
+  {{node.name}}
+  <div class="app-spacer"></div>
+  {{node.updateDate | date:'short'}}
+  <div class="app-spacer"></div>
+</ng-template>
+
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <ng-container [ngTemplateOutlet]="nameAndDate" [ngTemplateOutletContext]="{node}"></ng-container>
+    <div class="app-spacer"></div>
+    <ng-container [ngTemplateOutlet]="defaultButtons" [ngTemplateOutletContext]="{node}"></ng-container>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: isEditNode" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <mat-form-field *ngIf="editElement">
+      <input #inputElement matInput (keydown.enter)="doCreateNewFolder()" [(ngModel)]="editElement!.name">
+    </mat-form-field>
+    <div class="app-action-bar">
+      <button mat-raised-button color="primary" (click)="doCreateNewFolder()" [disabled]="editElement?.name == ''">
+        <mat-icon fontIcon="save"></mat-icon>
+        Create
+      </button>
+      <button mat-raised-button (click)="cancelEdit()">
+        Cancel
+      </button>
+    </div>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button mat-icon-button
+            [attr.aria-label]="'Toggle ' + node.name" matTreeNodeToggle>
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+    <ng-container [ngTemplateOutlet]="nameAndDate" [ngTemplateOutletContext]="{node}"></ng-container>
+    <ng-container [ngTemplateOutlet]="defaultButtons" [ngTemplateOutletContext]="{node}"></ng-container>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: isEmptyFolder" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <ng-container [ngTemplateOutlet]="nameAndDate" [ngTemplateOutletContext]="{node}"></ng-container>
+    <ng-container [ngTemplateOutlet]="defaultButtons" [ngTemplateOutletContext]="{node}"></ng-container>
+  </mat-tree-node>
+</mat-tree>  
