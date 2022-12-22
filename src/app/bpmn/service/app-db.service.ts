@@ -19,7 +19,7 @@ export class AppDbService extends Dexie {
   }
 
   async clear(): Promise<void> {
-    await this.bpmnDiagrams.clear();
     await this.bpmnElements.clear();
+    await this.bpmnDiagrams.clear();
   }
 }

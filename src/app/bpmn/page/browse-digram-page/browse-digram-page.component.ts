@@ -153,17 +153,12 @@ export class BrowseDigramPageComponent implements OnInit {
     }
   }
 
-  async doCreateNewFolder() {
+  async doSaveEnditElement(): Promise<void> {
+    console.info("doSaveEnditElement", this.editElement && this.editElement.name && this.editElement.name.length > 0, this.editElement);
     if (this.editElement && this.editElement.name && this.editElement.name.length > 0) {
       await this.elementService.save(this.editElement);
-      const id = this.editElement.parentId || 0;
       this.editElement = undefined;
       await this.doReload();
-      if (id > 0) {
-        this.flatTreeNodeCache.forEach((n, e) => {
-          if (n.expandable && n.source.id === id) this.treeControl.expand(n);
-        });
-      }
     }
   }
 

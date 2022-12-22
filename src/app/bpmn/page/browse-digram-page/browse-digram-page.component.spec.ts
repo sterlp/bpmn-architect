@@ -4,7 +4,6 @@ import { DebugElement, Predicate } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
@@ -12,7 +11,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BpmnElementIconComponent } from 'src/app/shared/bpmn-element-icon/bpmn-element-icon.component';
 import { BpmnType, newElement } from '../../model/diagram-model';
@@ -22,10 +20,10 @@ import { BpmnElementService } from '../../service/bpmn-element.service';
 
 import { BrowseDigramPageComponent } from './browse-digram-page.component';
 
-function findByInnerText(text: string, type?: string): Predicate<DebugElement> {
+function findByInnerText(text: string, type?: string, debug = false): Predicate<DebugElement> {
   return e => {
-    if (e.nativeNode.innerText && e.nativeNode.innerText != '') {
-      //console.info('findByInnerText', text, '=>', e.nativeNode.innerText.indexOf(text) >= 0, e.nativeNode.innerText, e.nativeNode);
+    if (debug && e.nativeNode.innerText && e.nativeNode.innerText != '') {
+      console.info('findByInnerText', text, '=>', e.nativeNode.innerText.indexOf(text) >= 0, e.nativeNode.innerText, e.nativeNode);
     }
     return e.nativeNode.innerText && e.nativeNode.innerText.indexOf(text) >= 0 && (!type ||  e.nativeNode.localName == type)
   };
@@ -58,11 +56,12 @@ describe('BrowseDigramPageComponent', () => {
   }));
 
   beforeEach(async () => {
+    await TestBed.inject(AppDbService).clear();
     fixture = TestBed.createComponent(BrowseDigramPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    await fixture.whenStable();
 
-    await TestBed.inject(AppDbService).clear();
     elementService = TestBed.inject(BpmnElementService);
     diagramService = TestBed.inject(BpmnDiagramService);
   });
@@ -104,4 +103,31 @@ describe('BrowseDigramPageComponent', () => {
     // should auto expand the node!
     expect(fixture.debugElement.query(findByInnerText('D2', 'mat-tree-node'))).toBeTruthy();
   });
+
+  it('new folder and edit folder name should work', async () => {
+    // GIVEN
+    let el = fixture.debugElement.nativeElement.querySelector('[aria-label="add folder"]');
+    expect(el).toBeTruthy();
+    // WHEN
+    el.click();
+    fixture.detectChanges();
+    // THEN
+    el = fixture.debugElement.nativeElement.querySelector('[aria-label="enter folder name"]');
+    expect(el).toBeTruthy();
+
+    // WHEN
+    await sendInput(el, 'folder 1');
+    await component.doSaveEnditElement();
+    fixture.detectChanges();
+    // THEN
+    expect(component.editElement).toBeFalsy();
+    expect(fixture.debugElement.query(findByInnerText('folder 1', 'mat-tree-node'))).toBeTruthy();
+  });
+
+  async function sendInput(input: any, value: string): Promise<any> {
+    input.value = value;
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    return await fixture.whenStable();
+  }
 });

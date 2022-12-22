@@ -15,13 +15,16 @@
 </mat-toolbar>
 
 <ng-template #defaultButtons let-node="node">
-  <button mat-icon-button color="primary" 
+  <button mat-icon-button color="primary"
+          attr.aria-label="edit  {{node.name}}"
           *ngIf="node" (click)="doEditNode(node)" 
           matTooltip="Edit {{node.name}}" [disabled]="this.editElement">
     <mat-icon fontIcon="edit"></mat-icon>
   </button>
 
-  <button mat-icon-button matTooltip="Add Folder" *ngIf="isFolder(node) || !node"
+  <button mat-icon-button matTooltip="Add Folder" 
+          [attr.aria-label]="node ? 'Add subfolder to {{node.name}}' : 'add folder'"
+          *ngIf="isFolder(node) || !node"
           [disabled]="this.editElement" (click)="doAddFolder(node)">
     <mat-icon fontIcon="create_new_folder"></mat-icon>
   </button>
@@ -61,14 +64,14 @@
   <mat-tree-node *matTreeNodeDef="let node; when: isEditNode" matTreeNodePadding>
     <button mat-icon-button disabled></button>
     <mat-form-field *ngIf="editElement">
-      <input #inputElement matInput (keydown.enter)="doCreateNewFolder()" [(ngModel)]="editElement!.name">
+      <input aria-label="enter folder name" matInput (keydown.enter)="doSaveEnditElement()" [(ngModel)]="editElement!.name">
     </mat-form-field>
     <div class="app-action-bar">
-      <button mat-raised-button color="primary" (click)="doCreateNewFolder()" [disabled]="editElement?.name == ''">
+      <button aria-label="save folder name" mat-raised-button color="primary" (click)="doSaveEnditElement()" [disabled]="editElement?.name == ''">
         <mat-icon fontIcon="save"></mat-icon>
         Create
       </button>
-      <button mat-raised-button (click)="cancelEdit()">
+      <button aria-label="cancel folder name change" mat-raised-button (click)="cancelEdit()">
         Cancel
       </button>
     </div>
