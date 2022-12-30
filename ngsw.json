@@ -1,0 +1,109 @@
+{
+  "configVersion": 1,
+  "timestamp": 1672410004282,
+  "index": "/bpmn-architect/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/bpmn-architect/favicon.ico",
+        "/bpmn-architect/index.html",
+        "/bpmn-architect/main.0acb524f7cb20d29.js",
+        "/bpmn-architect/manifest.webmanifest",
+        "/bpmn-architect/polyfills.e03831478276e0d4.js",
+        "/bpmn-architect/runtime.8420a285d5a4b80b.js",
+        "/bpmn-architect/styles.632725a4b23bd421.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/bpmn-architect/assets/icons/icon-128x128.png",
+        "/bpmn-architect/assets/icons/icon-144x144.png",
+        "/bpmn-architect/assets/icons/icon-152x152.png",
+        "/bpmn-architect/assets/icons/icon-192x192.png",
+        "/bpmn-architect/assets/icons/icon-384x384.png",
+        "/bpmn-architect/assets/icons/icon-512x512.png",
+        "/bpmn-architect/assets/icons/icon-72x72.png",
+        "/bpmn-architect/assets/icons/icon-96x96.png",
+        "/bpmn-architect/bpmn.67058807b4bcf238.woff2",
+        "/bpmn-architect/bpmn.74eea12b52b25cb2.svg",
+        "/bpmn-architect/bpmn.b5c9250d7d4947c4.ttf",
+        "/bpmn-architect/bpmn.e9e7d07618d46ca6.woff",
+        "/bpmn-architect/material-icons-outlined.78a93b2079680a08.woff",
+        "/bpmn-architect/material-icons-outlined.f86cb7b0aa53f0fe.woff2",
+        "/bpmn-architect/material-icons-round.92dc7ca2f4c591e7.woff",
+        "/bpmn-architect/material-icons-round.b10ec9db5b7fbc74.woff2",
+        "/bpmn-architect/material-icons-sharp.3885863ee4746422.woff2",
+        "/bpmn-architect/material-icons-sharp.a71cb2bf66c604de.woff",
+        "/bpmn-architect/material-icons-two-tone.588d63134de807a7.woff",
+        "/bpmn-architect/material-icons-two-tone.675bd578bd14533e.woff2",
+        "/bpmn-architect/material-icons.4ad034d2c499d9b6.woff",
+        "/bpmn-architect/material-icons.59322316b3fd6063.woff2"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/bpmn-architect/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/bpmn-architect/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/bpmn-architect/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/bpmn-architect/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/bpmn-architect/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/bpmn-architect/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/bpmn-architect/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/bpmn-architect/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/bpmn-architect/bpmn.67058807b4bcf238.woff2": "9011dbe383137f7f6a137ecef4d6cc77369de007",
+    "/bpmn-architect/bpmn.74eea12b52b25cb2.svg": "871b560d1b910010a171c0bca15900c4f3f23e8a",
+    "/bpmn-architect/bpmn.b5c9250d7d4947c4.ttf": "39130f7f14ba322822515a264447c8666f0e02b8",
+    "/bpmn-architect/bpmn.e9e7d07618d46ca6.woff": "5e29f44bf8cfde06a84de557297a250fbb3cb322",
+    "/bpmn-architect/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/bpmn-architect/index.html": "ec156e6bde1a76d051a87a22318d868c2ebfc228",
+    "/bpmn-architect/main.0acb524f7cb20d29.js": "5d010693da36d7078f07993c268dbe67cef1854b",
+    "/bpmn-architect/manifest.webmanifest": "d60d0329e815847fa3166f3de72c87eaaffb1105",
+    "/bpmn-architect/material-icons-outlined.78a93b2079680a08.woff": "b52ccd8fca4199d257b2a9fe377db29862f2853e",
+    "/bpmn-architect/material-icons-outlined.f86cb7b0aa53f0fe.woff2": "2f9e28ab559782402f27332633c843c40209d95a",
+    "/bpmn-architect/material-icons-round.92dc7ca2f4c591e7.woff": "c41bfee3f01218e18d53f4f4cac00f385ac9fbb1",
+    "/bpmn-architect/material-icons-round.b10ec9db5b7fbc74.woff2": "abe05e0641f1050fbe00ef0dbb10c5ea72c26cff",
+    "/bpmn-architect/material-icons-sharp.3885863ee4746422.woff2": "cf1c7b4d066d18af44cf7bc664dd2e46652a3a30",
+    "/bpmn-architect/material-icons-sharp.a71cb2bf66c604de.woff": "829cb48cb2dd17ae5e425b82dc186eb670694a10",
+    "/bpmn-architect/material-icons-two-tone.588d63134de807a7.woff": "02225d888afe4eebc7312b7432878dc8aef1f50f",
+    "/bpmn-architect/material-icons-two-tone.675bd578bd14533e.woff2": "296ff0bff395a77c2e33e7e31fffe73980bd93cf",
+    "/bpmn-architect/material-icons.4ad034d2c499d9b6.woff": "e4bb7c1e40d3febee58df963db276b2bf68c117b",
+    "/bpmn-architect/material-icons.59322316b3fd6063.woff2": "0bc0c675480d94ec7e8609dda6227f88c5d08d2c",
+    "/bpmn-architect/polyfills.e03831478276e0d4.js": "eb5812c6afa59de016b290f8b70eea391c5cd10a",
+    "/bpmn-architect/runtime.8420a285d5a4b80b.js": "4871e637eb5152ebdf80cf4cede56676d7a9ebac",
+    "/bpmn-architect/styles.632725a4b23bd421.css": "57d67ce8d6881a194a15a7bd64ac41f3206fbe72"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
