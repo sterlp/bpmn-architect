@@ -26,6 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { BpmnElementIconComponent } from './shared/bpmn-element-icon/bpmn-element-icon.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [],
+  providers: [Location, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
