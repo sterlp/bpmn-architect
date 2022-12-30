@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1672410153771,
+  "timestamp": 1672410288311,
   "index": "/bpmn-architect/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/bpmn-architect/favicon.ico",
         "/bpmn-architect/index.html",
-        "/bpmn-architect/main.0acb524f7cb20d29.js",
+        "/bpmn-architect/main.377575ca11420785.js",
         "/bpmn-architect/manifest.webmanifest",
         "/bpmn-architect/polyfills.e03831478276e0d4.js",
         "/bpmn-architect/runtime.8420a285d5a4b80b.js",
@@ -70,8 +70,8 @@
     "/bpmn-architect/bpmn.b5c9250d7d4947c4.ttf": "39130f7f14ba322822515a264447c8666f0e02b8",
     "/bpmn-architect/bpmn.e9e7d07618d46ca6.woff": "5e29f44bf8cfde06a84de557297a250fbb3cb322",
     "/bpmn-architect/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/bpmn-architect/index.html": "ec156e6bde1a76d051a87a22318d868c2ebfc228",
-    "/bpmn-architect/main.0acb524f7cb20d29.js": "5d010693da36d7078f07993c268dbe67cef1854b",
+    "/bpmn-architect/index.html": "72ad75f8c5133a5fd41892109e306b88b2ffd40a",
+    "/bpmn-architect/main.377575ca11420785.js": "2e70fd3f8a711b2df2d8d543bc26672367eefc19",
     "/bpmn-architect/manifest.webmanifest": "d60d0329e815847fa3166f3de72c87eaaffb1105",
     "/bpmn-architect/material-icons-outlined.78a93b2079680a08.woff": "b52ccd8fca4199d257b2a9fe377db29862f2853e",
     "/bpmn-architect/material-icons-outlined.f86cb7b0aa53f0fe.woff2": "2f9e28ab559782402f27332633c843c40209d95a",
