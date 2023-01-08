@@ -34,8 +34,7 @@ export class EditDiagramPageComponent implements OnInit, AfterContentInit {
     }
   }
 
-  async ngAfterContentInit() {
-    console.info('modeler', this.modeler);
+  ngAfterContentInit() {
   }
 
   async doUndo() {

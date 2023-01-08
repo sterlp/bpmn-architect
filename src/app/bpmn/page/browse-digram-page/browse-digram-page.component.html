@@ -6,12 +6,7 @@
   <button mat-raised-button color="warn" (click)="doClear()">
     Delete everything
   </button>
-  <button mat-icon-button [disabled]="this.editElement" matTooltip="Reload" (click)="doReload()">
-    <mat-icon fontIcon="reload"></mat-icon>
-  </button>
-  <ng-container [ngTemplateOutlet]="defaultButtons">
-  </ng-container>
-  
+  <ng-container [ngTemplateOutlet]="defaultButtons"></ng-container>  
 </mat-toolbar>
 
 <ng-template #defaultButtons let-node="node">

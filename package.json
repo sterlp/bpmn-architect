@@ -27,6 +27,7 @@
     "file-saver": "^2.0.5",
     "material-icons": "^1.13.1",
     "rxjs": "~7.5.0",
+    "tiny-svg": "^3.0.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },

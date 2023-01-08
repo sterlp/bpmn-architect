@@ -65,7 +65,10 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [Location, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [
+    Location, 
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
