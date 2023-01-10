@@ -6,6 +6,10 @@ import { AppDbService } from './app-db.service';
   providedIn: 'root'
 })
 export class BpmnElementService {
+
+  async findByNameAndType(name: string, type: BpmnType): Promise<BpmnElement | undefined> {
+    return this.db.bpmnElements.where({name, type}).first();
+  }
   
   async getLastChangedElement(): Promise<BpmnElement[]> {
     return this.db.bpmnElements.where('parentId').notEqual(0).limit(1).reverse().sortBy('updateDate');

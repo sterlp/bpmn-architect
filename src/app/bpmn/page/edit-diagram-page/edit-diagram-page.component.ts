@@ -24,14 +24,17 @@ export class EditDiagramPageComponent implements OnInit, AfterContentInit {
     private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id && id != 'new') {
-      this.diagram.id = parseInt(id);
-      this.doUndo();
-    } else {
-      const parent = parseInt(this.route.snapshot.queryParams['parent'] || '0');
-      this.diagram.element.parentId = parent;
-    }
+    
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      if (id && id != 'new') {
+        this.diagram.id = parseInt(id);
+        this.doUndo();
+      } else {
+        const parent = parseInt(this.route.snapshot.queryParams['parent'] || '0');
+        this.diagram.element.parentId = parent;
+      }
+    });    
   }
 
   ngAfterContentInit() {

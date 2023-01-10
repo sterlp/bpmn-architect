@@ -41,3 +41,19 @@ body {
     margin-top: -18px;
 }
 */
+
+.diagram-link {
+    fill: #fff;
+    cursor: pointer;
+    pointer-events: all;
+}
+.diagram-link path {
+    fill: #000;
+    opacity: 0.8;
+}
+.diagram-link:hover {
+    path {
+        fill: #5bc0de;
+        opacity: 1;
+    }
+}

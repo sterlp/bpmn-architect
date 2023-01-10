@@ -2,21 +2,29 @@ import { Injectable } from '@angular/core';
 import { AppDbService } from './app-db.service';
 import { BpmnDiagram, BpmnType, newElement } from '../model/diagram-model';
 import { BpmnElementService } from './bpmn-element.service';
+import { from, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BpmnDiagramService {
-  
+
   constructor(private elementService: BpmnElementService, private db: AppDbService) { }
 
+  async findIdByName(name?: string): Promise<number | undefined> {
+    let result: Promise<number | undefined> = Promise.resolve(undefined);
+    if (name) {
+      const e = await this.elementService.findByNameAndType(name, BpmnType.diagram);
+      if (e) result = Promise.resolve(e.id);
+    }
+    return result;
+  }
   async delete(id?: number): Promise<void> {
     if (id) {
       await this.elementService.delete(id);
       await this.db.bpmnElements.delete(id);
     }
   }
-
   async get(id: number): Promise<BpmnDiagram | undefined> {
     const r = await this.db.bpmnDiagrams.get(id);
     if (r) r.element = await this.elementService.get(r.id!) || newElement('', BpmnType.diagram);
