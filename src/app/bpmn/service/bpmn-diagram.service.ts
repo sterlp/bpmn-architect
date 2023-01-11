@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AppDbService } from './app-db.service';
 import { BpmnDiagram, BpmnType, newElement } from '../model/diagram-model';
 import { BpmnElementService } from './bpmn-element.service';
-import { from, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

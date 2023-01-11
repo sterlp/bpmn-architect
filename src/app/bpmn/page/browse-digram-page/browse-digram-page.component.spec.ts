@@ -13,21 +13,13 @@ import { MatTreeModule } from '@angular/material/tree';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BpmnElementIconComponent } from 'src/app/shared/bpmn-element-icon/bpmn-element-icon.component';
+import { findByInnerText } from 'src/app/shared/test/selectors';
 import { BpmnType, newElement } from '../../model/diagram-model';
 import { AppDbService } from '../../service/app-db.service';
 import { BpmnDiagramService } from '../../service/bpmn-diagram.service';
 import { BpmnElementService } from '../../service/bpmn-element.service';
 
 import { BrowseDigramPageComponent } from './browse-digram-page.component';
-
-function findByInnerText(text: string, type?: string, debug = false): Predicate<DebugElement> {
-  return e => {
-    if (debug && e.nativeNode.innerText && e.nativeNode.innerText != '') {
-      console.info('findByInnerText', text, '=>', e.nativeNode.innerText.indexOf(text) >= 0, e.nativeNode.innerText, e.nativeNode);
-    }
-    return e.nativeNode.innerText && e.nativeNode.innerText.indexOf(text) >= 0 && (!type ||  e.nativeNode.localName == type)
-  };
-}
 
 describe('BrowseDigramPageComponent', () => {
   let component: BrowseDigramPageComponent;

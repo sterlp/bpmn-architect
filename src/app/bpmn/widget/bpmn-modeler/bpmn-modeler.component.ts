@@ -130,6 +130,7 @@ class MyRenderer extends BaseRenderer {
       console.info('SVG click to diagram ' + id, e);
       this.router.navigate(['/diagrams', id]);
     });
+    console.warn('Added link for ', id, g);
     return g;
   }
 }
