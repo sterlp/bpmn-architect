@@ -12,10 +12,14 @@ import {
 } from 'tiny-svg';
 import { BpmnDiagramService } from '../../service/bpmn-diagram.service';
 import { Router } from '@angular/router';
+import { BpmnElementService } from '../../service/bpmn-element.service';
+import { BpmnDiagram, BpmnType } from '../../model/diagram-model';
 
 export interface BpmnContent {
   xml: string;
 }
+
+const SHOWING_DIAGRAM = '__showing_diagram_id__';
 
 @Component({
   selector: 'app-bpmn-modeler',
@@ -26,8 +30,11 @@ export class BpmnModelerComponent implements AfterContentInit, OnDestroy {
   @ViewChild('diagram', { static: true }) 
   private _diagram?: ElementRef<HTMLElement>;
   private _modeler: any;
+  private readonly _diagramNameToIdMap = new Map<string, number>();
 
-  constructor(private _zone: NgZone, private _router: Router, private _diagramService: BpmnDiagramService) {
+  constructor(private _zone: NgZone, private _router: Router,
+    private _elementService: BpmnElementService) {
+    this._diagramNameToIdMap.set(SHOWING_DIAGRAM, 0);
 
     this._modeler = new BpmnJS({
       keyboard: {
@@ -35,14 +42,16 @@ export class BpmnModelerComponent implements AfterContentInit, OnDestroy {
       },
       additionalModules: [
         { __init__: [ 'myRenderer' ], myRenderer: [ 'type', MyRenderer ] },
-        { 'diagramService': ['value', _diagramService] },
-        { 'router': ['value', _router] }
+        { 'router': ['value', _router] },
+        { 'diagramNameToIdMap': ['value', this._diagramNameToIdMap] }
       ],
     });
   }
 
-  ngAfterContentInit(): void {
+  async ngAfterContentInit(): Promise<void> {
     if (this._diagram) {
+      const diagrams = await this._elementService.findByType(BpmnType.diagram);
+      diagrams.forEach(d => this._diagramNameToIdMap.set(d.name, d.id!));
       this._modeler.attachTo(this._diagram.nativeElement);
       this._zone.run(() => this._modeler.createDiagram());
     } else {
@@ -54,8 +63,9 @@ export class BpmnModelerComponent implements AfterContentInit, OnDestroy {
     this._modeler.destroy();
   }
 
-  doOpen(diagram: String): Promise<any> {
-    return this._modeler.importXML(diagram);
+  doOpen(diagram: BpmnDiagram): Promise<any> {
+    this._diagramNameToIdMap.set(SHOWING_DIAGRAM, diagram.element.id ?? 0);
+    return this._modeler.importXML(diagram.xml);
   }
 
   doSave(): Promise<BpmnContent> {
@@ -67,7 +77,7 @@ class MyRenderer extends BaseRenderer {
   static $inject?: Array<string>;
 
   constructor (private eventBus: any, private bpmnRenderer: any, 
-    private diagramService: BpmnDiagramService,
+    private diagramNameToIdMap: Map<string, number>,
     private router: Router) {
 
     super(eventBus, 1500);
@@ -89,14 +99,14 @@ class MyRenderer extends BaseRenderer {
     return shape;
   }
 
-  async addLinkIcon(name: string, parentNode: any) {
-    const id = await this.diagramService.findIdByName(name);
-    if (id) {
+  addLinkIcon(name: string, parentNode: any): void {
+    const id = this.diagramNameToIdMap.get(name);
+    if (id && id !== this.diagramNameToIdMap.get(SHOWING_DIAGRAM)) {
       const rect = this.newLink(id);
-      svgAppend(parentNode, rect);
       svgAttr(rect, {
         transform: 'translate(2, -25)'
       });
+      svgAppend(parentNode, rect);
     }
   }
 
@@ -130,8 +140,7 @@ class MyRenderer extends BaseRenderer {
       console.info('SVG click to diagram ' + id, e);
       this.router.navigate(['/diagrams', id]);
     });
-    console.warn('Added link for ', id, g);
     return g;
   }
 }
-MyRenderer.$inject = [ 'eventBus', 'bpmnRenderer', 'diagramService', 'router' ];
+MyRenderer.$inject = [ 'eventBus', 'bpmnRenderer', 'diagramNameToIdMap', 'router' ];

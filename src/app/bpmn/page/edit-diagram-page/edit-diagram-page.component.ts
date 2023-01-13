@@ -44,7 +44,7 @@ export class EditDiagramPageComponent implements OnInit, AfterContentInit {
     const loaded = await this.bpmnService.get(this.diagram.id!);
     if (loaded) {
       this.diagram = loaded;
-      this.modeler.doOpen(this.diagram.xml);
+      this.modeler.doOpen(this.diagram);
     }
     else this.diagram.id = undefined;
   }
@@ -68,7 +68,7 @@ export class EditDiagramPageComponent implements OnInit, AfterContentInit {
   }
 
   onUpload(upload: FileUploadContent): void {
-    this.modeler.doOpen(upload.value)
+    this.modeler.doOpen({xml: upload.value, element: newElement('', BpmnType.diagram)})
         .then( ({warnings}) => console.info('success', warnings))
         .catch(er => console.error('upload failed', er));
   }

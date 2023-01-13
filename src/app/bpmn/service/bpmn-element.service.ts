@@ -7,6 +7,9 @@ import { AppDbService } from './app-db.service';
 })
 export class BpmnElementService {
 
+  async findByType(type: BpmnType): Promise<BpmnElement[]> {
+    return this.db.bpmnElements.where({type}).sortBy('name');
+  }
   async findByNameAndType(name: string, type: BpmnType): Promise<BpmnElement | undefined> {
     return this.db.bpmnElements.where({name, type}).first();
   }

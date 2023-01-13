@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import * as BpmnJS from 'bpmn-js/dist/bpmn-modeler.production.min.js';
 import { findByInnerText } from 'src/app/shared/test/selectors';
@@ -23,6 +23,7 @@ describe('BpmnModelerComponent', () => {
     fixture = TestBed.createComponent(BpmnModelerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    await component.ngAfterContentInit();
   });
 
   it('should create', () => {
@@ -41,32 +42,32 @@ describe('BpmnModelerComponent', () => {
   it('should display diagram', async () => {
     // GIVEN
     expect(fixture.debugElement.queryAll(By.css('.djs-group')).length).toBeGreaterThanOrEqual(1);
+    const d1 = await TestBed.inject(BpmnDiagramService).newDiagram('Diagram1', diagram1);
     // WHEN
-    component.doOpen(diagram1);
+    component.doOpen(d1);
     await fixture.whenStable();
     fixture.detectChanges();
     // THEN
     expect(fixture.debugElement.queryAll(By.css('.djs-group')).length).toBeGreaterThanOrEqual(3);
   });
 
-  it('should diplay diagram link', fakeAsync(() => {
+  it('should diplay diagram link', async () => {
     // GIVEN
     const diagramService = TestBed.inject(BpmnDiagramService);
-    diagramService.newDiagram('Diagram2', diagram2);
-    flush();
+    await diagramService.newDiagram('Diagram1', diagram1);
+    const d2 = await diagramService.newDiagram('Diagram2', diagram2);
 
     // WHEN
-    component.doOpen(diagram2);
+    await component.ngAfterContentInit();
+    component.doOpen(d2);
     fixture.detectChanges();
-    flush();
-    
-    // THEN 
-    fixture.whenStable().then(() => {
-      expect(fixture.debugElement.query(findByInnerText('Diagram1'))).toBeTruthy();
-      console.info('diagram-link', fixture.debugElement.nativeElement.querySelector('.diagram-link'));
-      expect(window.document.getElementsByClassName('diagram-link').length).toBe(1);
-    });
-  }));
+    await fixture.whenStable();
+  
+    // THEN   
+    expect(fixture.debugElement.query(findByInnerText('Diagram1'))).toBeTruthy();
+    expect(fixture.debugElement.query(findByInnerText('Diagram2'))).toBeTruthy();
+    expect(fixture.debugElement.queryAll(By.css('.diagram-link')).length).toBe(1);
+  });
 });
 
 
@@ -104,6 +105,7 @@ const diagram2 = `
     <bpmn:startEvent id="StartEvent_1" />
     <bpmn:task id="Activity_0liyt7s" name="Diagram1" />
     <bpmn:task id="Activity_0o4krvk" name="Foo" />
+    <bpmn:task id="Activity_00geomc" name="Diagram2" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
@@ -116,6 +118,10 @@ const diagram2 = `
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0o4krvk_di" bpmnElement="Activity_0o4krvk">
         <dc:Bounds x="260" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_143lsyb" bpmnElement="Activity_00geomc">
+        <dc:Bounds x="550" y="80" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
