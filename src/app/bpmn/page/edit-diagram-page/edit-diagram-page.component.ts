@@ -1,10 +1,11 @@
+import { query } from '@angular/animations';
 import { AfterContentInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as FileSaver from 'file-saver';
 import { Subscription } from 'rxjs';
 import { BpmnModelerComponent } from 'src/app/bpmn/widget/bpmn-modeler/bpmn-modeler.component';
 import { FileUploadContent } from 'src/app/shared/upload-button/upload-button.component';
-import { BpmnDiagram, BpmnType, newElement } from '../../model/diagram-model';
+import { BpmnDiagram, BpmnElement, BpmnType, newElement } from '../../model/diagram-model';
 import { BpmnDiagramService } from '../../service/bpmn-diagram.service';
 import { BpmnElementService } from '../../service/bpmn-element.service';
 
@@ -13,19 +14,26 @@ import { BpmnElementService } from '../../service/bpmn-element.service';
   templateUrl: './edit-diagram-page.component.html',
   styleUrls: ['./edit-diagram-page.component.scss']
 })
-export class EditDiagramPageComponent implements OnInit, AfterContentInit {
+export class EditDiagramPageComponent implements OnInit, OnDestroy {
   @ViewChild(BpmnModelerComponent, {static: true}) 
   modeler!: BpmnModelerComponent;
 
   diagram: BpmnDiagram = { xml: '', element: newElement('', BpmnType.diagram) };
+  navigationSource?: BpmnElement;
+  private _subs = new Array<Subscription>();
 
   constructor(
+    private bmmnElementService: BpmnElementService,
     private bpmnService: BpmnDiagramService,
     private route: ActivatedRoute) {}
 
+  ngOnDestroy(): void {
+    for (const sub of this._subs) try {sub.unsubscribe();} catch (e) {};
+    this._subs = [];
+  }
+
   ngOnInit(): void {
-    
-    this.route.params.subscribe(params => {
+    this._subs.push(this.route.params.subscribe(params => {
       const id = params['id'];
       if (id && id != 'new') {
         this.diagram.id = parseInt(id);
@@ -34,10 +42,14 @@ export class EditDiagramPageComponent implements OnInit, AfterContentInit {
         const parent = parseInt(this.route.snapshot.queryParams['parent'] || '0');
         this.diagram.element.parentId = parent;
       }
-    });    
-  }
-
-  ngAfterContentInit() {
+    }));
+    this._subs.push(this.route.queryParams
+      .subscribe(async (p) => {
+        this.navigationSource = p['navigationSource'] ? 
+          await this.bmmnElementService.get(parseInt(p['navigationSource'])) 
+          : undefined;
+      }
+    ));    
   }
 
   async doUndo() {

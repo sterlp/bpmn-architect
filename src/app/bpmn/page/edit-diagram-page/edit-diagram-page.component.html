@@ -1,11 +1,16 @@
 <mat-toolbar>
     <button mat-icon-button routerLink="/diagrams" matTooltip="Back" ><mat-icon fontIcon="arrow_back"></mat-icon></button>
-    <div class="app-spacer"></div>
+    
+    <div *ngIf="navigationSource">
+        <a mat-flat-button [routerLink]="['/diagrams', navigationSource.id]">{{ navigationSource.name }}</a>&nbsp;/&nbsp;
+    </div>
 
     <mat-form-field>
         <mat-label>Diagram name</mat-label>
         <input matInput [(ngModel)]="diagram.element.name">
     </mat-form-field>
+
+    <div class="app-spacer"></div>
     
     <button [disabled]="diagram.element.name == ''" mat-raised-button color="primary" (click)="doSave()">
         <mat-icon fontIcon="save"></mat-icon>

@@ -1,6 +1,5 @@
 import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import * as BpmnJS from 'bpmn-js/dist/bpmn-modeler.production.min.js';
 import { findByInnerText } from 'src/app/shared/test/selectors';
 import { AppDbService } from '../../service/app-db.service';
 import { BpmnDiagramService } from '../../service/bpmn-diagram.service';

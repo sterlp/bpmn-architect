@@ -138,7 +138,7 @@ class MyRenderer extends BaseRenderer {
 
     a.addEventListener('click', (e) => {
       console.info('SVG click to diagram ' + id, e);
-      this.router.navigate(['/diagrams', id]);
+      this.router.navigate(['/diagrams', id], { queryParams: { navigationSource: this.diagramNameToIdMap.get(SHOWING_DIAGRAM)} });
     });
     return g;
   }
