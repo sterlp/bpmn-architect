@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^15.0.4",
     "@angular/router": "^15.0.4",
     "@angular/service-worker": "^15.0.4",
-    "bpmn-js": "^11.0.1",
+    "bpmn-js": "^11.1.0",
     "dexie": "^3.2.2",
     "file-saver": "^2.0.5",
     "material-icons": "^1.13.1",

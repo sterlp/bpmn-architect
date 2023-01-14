@@ -154,7 +154,6 @@ export class BrowseDigramPageComponent implements OnInit {
   }
 
   async doSaveEnditElement(): Promise<void> {
-    console.info("doSaveEnditElement", this.editElement && this.editElement.name && this.editElement.name.length > 0, this.editElement);
     if (this.editElement && this.editElement.name && this.editElement.name.length > 0) {
       await this.elementService.save(this.editElement);
       this.editElement = undefined;

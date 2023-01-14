@@ -11,13 +11,13 @@
 
 <ng-template #defaultButtons let-node="node">
   <button mat-icon-button color="primary"
-          attr.aria-label="edit  {{node.name}}"
           *ngIf="node" (click)="doEditNode(node)" 
-          matTooltip="Edit {{node.name}}" [disabled]="this.editElement">
+          attr.aria-label="edit  {{node.name}}"
+          matTooltip="Edit '{{node.name}}'" [disabled]="this.editElement">
     <mat-icon fontIcon="edit"></mat-icon>
   </button>
 
-  <button mat-icon-button matTooltip="Add Folder" 
+  <button mat-icon-button [matTooltip]="node ? 'Add Folder to \'' + node.name + '\'' : 'Add Folder'"
           [attr.aria-label]="node ? 'Add subfolder to {{node.name}}' : 'add folder'"
           *ngIf="isFolder(node) || !node"
           [disabled]="this.editElement" (click)="doAddFolder(node)">
@@ -25,14 +25,16 @@
   </button>
 
   <button mat-icon-button color="primary" routerLink="/diagrams/new" 
-          [queryParams]="toQueryParams(node)" matTooltip="Add Diagram" 
+          [queryParams]="toQueryParams(node)" 
+          [matTooltip]="node ? 'Add Diagram to \'' + node.name + '\'' : 'Add Diagram'"
           [disabled]="this.editElement" *ngIf="isFolder(node) || !node" >
     <mat-icon fontIcon="add_chart"></mat-icon>
   </button>
-  <button mat-icon-button [disabled]="this.editElement" 
-          *ngIf="node && node.source?.id" color="warn" 
+  <button mat-icon-button *ngIf="node && node.source?.id"
+          [disabled]="this.editElement" 
+          color="warn" 
           (click)="doDelete(node)"
-          matTooltip="Delete {{ node.name }}">
+          matTooltip="Delete '{{ node.name }}'">
     <mat-icon fontIcon="delete"></mat-icon>
   </button>
 
@@ -64,7 +66,7 @@
     <div class="app-action-bar">
       <button aria-label="save folder name" mat-raised-button color="primary" (click)="doSaveEnditElement()" [disabled]="editElement?.name == ''">
         <mat-icon fontIcon="save"></mat-icon>
-        Create
+        {{editElement?.id ? 'Save' : 'Create'}}
       </button>
       <button aria-label="cancel folder name change" mat-raised-button (click)="cancelEdit()">
         Cancel
