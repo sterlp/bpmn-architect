@@ -27,6 +27,8 @@ import { MatCardModule } from '@angular/material/card';
 import { BpmnElementIconComponent } from './shared/bpmn-element-icon/bpmn-element-icon.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     UploadButtonComponent,
     BrowseDigramPageComponent,
     BpmnElementIconComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatBadgeModule,
     MatTooltipModule,
     MatCardModule,
+    MatDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

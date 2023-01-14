@@ -23,3 +23,4 @@ You can einter install the app into your browser or just add a bookmark to the l
 # Based on
 
 1. https://github.com/bpmn-io/bpmn-js
+2. https://material.angular.io/

@@ -4,6 +4,7 @@ import { DebugElement, Predicate } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
@@ -42,7 +43,8 @@ describe('BrowseDigramPageComponent', () => {
         MatTableModule,
         MatTreeModule,
         MatToolbarModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatDialogModule
       ]
     }).compileComponents();
   }));

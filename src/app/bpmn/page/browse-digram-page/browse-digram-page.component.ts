@@ -6,6 +6,8 @@ import { BpmnElementService } from '../../service/bpmn-element.service';
 import { BpmnDiagramService } from '../../service/bpmn-diagram.service';
 import { AppDbService } from '../../service/app-db.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent, ConfirmDialogModel } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 
 /**
@@ -44,6 +46,7 @@ export class BrowseDigramPageComponent implements OnInit {
   parent?: BpmnElement;
 
   constructor(
+    private dialog: MatDialog,
     private router: Router,
     private elementService: BpmnElementService, 
     private diagramService: BpmnDiagramService, 
@@ -101,15 +104,21 @@ export class BrowseDigramPageComponent implements OnInit {
     }
   }
 
-  async doDelete(node: FlatTreeNode): Promise<void> {
-    await this.diagramService.delete(node.source.id);
-    await this.elementService.delete(node.source.id);
-    this.flatTreeNodeCache.delete(node.source);
+  doDelete(node: FlatTreeNode) {
+    this.dialog.open(ConfirmDialogComponent, {
+      data: new ConfirmDialogModel(`Should '${node.name}' be deleted?`, 'Confirm delete')}
+    ).afterClosed().subscribe(okay => okay ? this._deleteElement(node.source) : null);
+  }
+
+  private async _deleteElement(element: BpmnElement): Promise<void> {
+    await this.diagramService.delete(element.id);
+    await this.elementService.delete(element.id);
+    this.flatTreeNodeCache.delete(element);
     // if we have children on the deleted node, we have to reload
-    if (node.source.children?.length || 0 > 0) {
+    if (element.children?.length || 0 > 0) {
       this.doReload();
     } else {
-      this.dataSource.data = this.dataSource.data.filter(el => el != node.source || el.id !== node.source.id);
+      this.dataSource.data = this.dataSource.data.filter(el => el != element || el.id !== element.id);
     }
   }
 
@@ -183,8 +192,15 @@ export class BrowseDigramPageComponent implements OnInit {
   }
 
   async doClear() {
-    await this.db.clear();
-    await this.doReload();
+    this.dialog.open(ConfirmDialogComponent, {
+      data: new ConfirmDialogModel(`Do your really want to delete all data? Everything will be removed.`, 'Confirm clear data')}
+    ).afterClosed().subscribe(async (okay) => {
+      if (okay) {
+        await this.db.clear();
+        await this.doReload();
+      }
+    });
+    
   }
 
   isFolderWithActions(node: FlatTreeNode) {
