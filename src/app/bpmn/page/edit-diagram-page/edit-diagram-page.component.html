@@ -2,7 +2,7 @@
     <button mat-icon-button routerLink="/diagrams" matTooltip="Back" ><mat-icon fontIcon="arrow_back"></mat-icon></button>
     
     <div *ngIf="navigationSource">
-        <a mat-flat-button [routerLink]="['/diagrams', navigationSource.id]">{{ navigationSource.name }}</a>&nbsp;/&nbsp;
+        <a [routerLink]="['/diagrams', navigationSource.id]">{{ navigationSource.name }}</a>&nbsp;/&nbsp;
     </div>
 
     <mat-form-field>
