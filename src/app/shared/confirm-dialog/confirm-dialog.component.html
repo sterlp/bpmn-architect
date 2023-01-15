@@ -1,12 +1,11 @@
-<h1 mat-dialog-title>
-    {{data && data.title}}
-</h1>
+<h1 mat-dialog-title>{{ data.title }}</h1>
   
 <div mat-dialog-content>
-    <p>{{data && data.message}}</p>
+    {{ data && data.message }}
 </div>
   
 <div mat-dialog-actions>
+    <div class="app-spacer"></div>
     <button mat-button (click)="onDismiss()" aria-label="no">[<b>n</b>]o</button>
     <button mat-raised-button color="primary" (click)="onConfirm()" aria-label="yes">[<b>y</b>]es</button>
 </div>

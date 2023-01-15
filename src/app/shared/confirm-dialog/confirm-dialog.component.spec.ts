@@ -38,7 +38,7 @@ describe('ConfirmDialogComponent', () => {
   });
 
   it('should display message', () => {
-    expect(fixture.debugElement.query(findByInnerText('my message', 'p'))).toBeTruthy();
+    expect(fixture.debugElement.query(findByInnerText('my message', 'div'))).toBeTruthy();
     expect(fixture.debugElement.query(findByInnerText('my message', 'h1'))).toBeFalsy();
   });
 
