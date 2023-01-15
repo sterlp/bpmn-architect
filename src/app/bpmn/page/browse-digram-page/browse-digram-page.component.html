@@ -49,7 +49,7 @@
   <div class="app-spacer"></div>
 </ng-template>
 
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+<mat-tree [dataSource]="ds.dataSource" [treeControl]="ds.treeControl">
 
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
     <button mat-icon-button disabled></button>
@@ -78,7 +78,7 @@
     <button mat-icon-button
             [attr.aria-label]="'Toggle ' + node.name" matTreeNodeToggle>
       <mat-icon class="mat-icon-rtl-mirror">
-        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        {{ds.treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
       </mat-icon>
     </button>
     <ng-container [ngTemplateOutlet]="nameAndDate" [ngTemplateOutletContext]="{node}"></ng-container>
