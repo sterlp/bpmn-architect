@@ -61,7 +61,7 @@
   <mat-tree-node *matTreeNodeDef="let node; when: isEditNode" matTreeNodePadding>
     <button mat-icon-button disabled></button>
     <mat-form-field *ngIf="editElement">
-      <input aria-label="enter folder name" matInput (keydown.enter)="doSaveEnditElement()" [(ngModel)]="editElement!.name">
+      <input #inputName aria-label="enter folder name" matInput (keydown.enter)="doSaveEnditElement()" [(ngModel)]="editElement!.name">
     </mat-form-field>
     <div class="app-action-bar">
       <button aria-label="save folder name" mat-raised-button color="primary" (click)="doSaveEnditElement()" [disabled]="editElement?.name == ''">

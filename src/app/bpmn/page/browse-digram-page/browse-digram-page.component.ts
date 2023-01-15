@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { BpmnElement, BpmnType, newElement } from '../../model/diagram-model';
@@ -29,6 +29,8 @@ interface FlatTreeNode {
   styleUrls: ['./browse-digram-page.component.scss']
 })
 export class BrowseDigramPageComponent implements OnInit {
+
+  @ViewChild('inputName') inputName?: ElementRef;
 
   /** The TreeControl controls the expand/collapse state of tree nodes.  */
   treeControl: FlatTreeControl<FlatTreeNode>;
@@ -101,7 +103,29 @@ export class BrowseDigramPageComponent implements OnInit {
       const d = this.dataSource.data;
       this.dataSource.data = [];
       this.dataSource.data = d;
+      this._focusInput();
     }
+  }
+
+  doAddFolder(node?: FlatTreeNode) {
+    const folder = this.editElement = newElement('', BpmnType.folder, node?.source.id);
+
+    if (node && node.source.id) {
+      this.parent = node.source;
+      this.parent.children!.push(folder);
+      node.expandable = true;
+      this.dataSource.data = this.dataSource.data;
+      this.treeControl.expand(node);
+    } else {      
+      this.dataSource.data = new Array<BpmnElement>(folder).concat(this.dataSource.data);
+    }
+    this._focusInput();
+  }
+
+  private _focusInput() {
+    setTimeout(() => {
+      if (this.inputName) this.inputName.nativeElement.focus();
+    },1);
   }
 
   doDelete(node: FlatTreeNode) {
@@ -205,19 +229,5 @@ export class BrowseDigramPageComponent implements OnInit {
 
   isFolderWithActions(node: FlatTreeNode) {
     return node.source.id && node.source.type == BpmnType.folder;
-  }
-
-  doAddFolder(node?: FlatTreeNode) {
-    const folder = this.editElement = newElement('', BpmnType.folder, node?.source.id);
-
-    if (node && node.source.id) {
-      this.parent = node.source;
-      this.parent.children!.push(folder);
-      node.expandable = true;
-      this.dataSource.data = this.dataSource.data;
-      this.treeControl.expand(node);
-    } else {      
-      this.dataSource.data = new Array<BpmnElement>(folder).concat(this.dataSource.data);
-    }
   }
 }
