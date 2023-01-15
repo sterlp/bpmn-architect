@@ -28,6 +28,5 @@ export class ConfirmDialogComponent {
 }
 
 export class ConfirmDialogModel {
-  constructor(public message: string, public title: string = 'Confirm') {
-  }
+  constructor(public message: string, public title: string = 'Confirm') {}
 }
