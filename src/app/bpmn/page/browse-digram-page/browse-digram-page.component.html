@@ -30,7 +30,9 @@
           [disabled]="this.editElement" *ngIf="isFolder(node) || !node" >
     <mat-icon fontIcon="add_chart"></mat-icon>
   </button>
-  <button mat-icon-button *ngIf="node && node.source?.id"
+  <button mat-icon-button 
+          *ngIf="node && node.source?.id"
+          [attr.aria-label]="'Delete ' + node.name"
           [disabled]="this.editElement" 
           color="warn" 
           (click)="doDelete(node)"

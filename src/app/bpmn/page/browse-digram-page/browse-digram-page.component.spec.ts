@@ -11,9 +11,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BpmnElementIconComponent } from 'src/app/shared/bpmn-element-icon/bpmn-element-icon.component';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { findByInnerText } from 'src/app/shared/test/selectors';
 import { BpmnType, newElement } from '../../model/diagram-model';
 import { AppDbService } from '../../service/app-db.service';
@@ -71,7 +73,7 @@ describe('BrowseDigramPageComponent', () => {
     await elementService.save(newElement('F3', BpmnType.folder, f2.parentId));
 
     // WHEN
-    await component.doReload();
+    await component.ds.doReload();
     fixture.detectChanges();
 
     // THEN
@@ -89,7 +91,7 @@ describe('BrowseDigramPageComponent', () => {
     await diagramService.newDiagram('D2', 'xml2', f1.id);
 
     // WHEN
-    await component.doReload();
+    await component.ds.doReload();
     fixture.detectChanges();
 
     // THEN
@@ -116,6 +118,29 @@ describe('BrowseDigramPageComponent', () => {
     // THEN
     expect(component.editElement).toBeFalsy();
     expect(fixture.debugElement.query(findByInnerText('folder 1', 'mat-tree-node'))).toBeTruthy();
+  });
+
+  it('delete folder should remove the folder', async () => {
+    // GIVEN
+    const d1 = await elementService.save(newElement('folder 1'));
+    await component.ds.doReload();
+    expect(fixture.debugElement.query(findByInnerText('folder 1', 'mat-tree-node'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('button[aria-label="Delete folder 1"]'))).toBeTruthy();
+    spyOn(component, 'doDelete');
+
+    // WHEN
+    fixture.debugElement.query(By.css('button[aria-label="Delete folder 1"]')).nativeElement.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    // THEN
+    expect(component.doDelete).toHaveBeenCalled();
+    
+    // WHEN
+    await component._deleteElement(d1);
+    fixture.detectChanges();
+    // THEN
+    expect(fixture.debugElement.query(findByInnerText('folder 1', 'mat-tree-node'))).toBeFalsy();
   });
 
   async function sendInput(input: any, value: string): Promise<any> {

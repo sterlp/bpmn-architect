@@ -100,16 +100,11 @@ export class BrowseDigramPageComponent implements OnInit {
     ).afterClosed().subscribe(okay => okay ? this._deleteElement(node.source) : null);
   }
 
-  private async _deleteElement(element: BpmnElement): Promise<void> {
+  async _deleteElement(element: BpmnElement): Promise<void> {
     await this.diagramService.delete(element.id);
     await this.elementService.delete(element.id);
     this.ds.flatTreeNodeCache.delete(element);
-    // if we have children on the deleted node, we have to reload
-    if (element.children?.length || 0 > 0) {
-      this.ds.doReload();
-    } else {
-      this.ds.remove(element);
-    }
+    await this.ds.doReload();
   }
 
   async doSaveEnditElement(): Promise<void> {
