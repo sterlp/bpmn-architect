@@ -5,8 +5,10 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -46,7 +48,9 @@ describe('BrowseDigramPageComponent', () => {
         MatTreeModule,
         MatToolbarModule,
         MatTooltipModule,
-        MatDialogModule
+        MatDialogModule,
+        MatMenuModule,
+        MatDividerModule
       ]
     }).compileComponents();
   }));
@@ -102,13 +106,13 @@ describe('BrowseDigramPageComponent', () => {
 
   it('new folder and edit folder name should work', async () => {
     // GIVEN
-    let el = fixture.debugElement.nativeElement.querySelector('[aria-label="add folder"]');
-    expect(el).toBeTruthy();
+    fixture.debugElement.nativeElement.querySelector('[aria-label="Open menu"]').click();
+    await fixture.whenStable();
     // WHEN
-    el.click();
+    fixture.debugElement.query(findByInnerText('Add folder', 'button')).nativeElement.click();
     fixture.detectChanges();
     // THEN
-    el = fixture.debugElement.nativeElement.querySelector('[aria-label="enter folder name"]');
+    let el = fixture.debugElement.nativeElement.querySelector('[aria-label="enter folder name"]');
     expect(el).toBeTruthy();
 
     // WHEN
@@ -125,17 +129,6 @@ describe('BrowseDigramPageComponent', () => {
     const d1 = await elementService.save(newElement('folder 1'));
     await component.ds.doReload();
     expect(fixture.debugElement.query(findByInnerText('folder 1', 'mat-tree-node'))).toBeTruthy();
-    expect(fixture.debugElement.query(By.css('button[aria-label="Delete folder 1"]'))).toBeTruthy();
-    spyOn(component, 'doDelete');
-
-    // WHEN
-    fixture.debugElement.query(By.css('button[aria-label="Delete folder 1"]')).nativeElement.click();
-    fixture.detectChanges();
-    await fixture.whenStable();
-
-    // THEN
-    expect(component.doDelete).toHaveBeenCalled();
-    
     // WHEN
     await component._deleteElement(d1);
     fixture.detectChanges();

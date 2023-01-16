@@ -29,10 +29,7 @@ export class BrowseDiagramDataSource {
   private readonly elementMap = new Map<number, BpmnElement>();
 
 
-  constructor(
-    private elementService: BpmnElementService, 
-    private diagramService: BpmnDiagramService, 
-    private db: AppDbService) {
+  constructor(private elementService: BpmnElementService) {
 
     this.treeFlattener = new MatTreeFlattener(
       (n, l) => this._nodeTransformer(n, l),

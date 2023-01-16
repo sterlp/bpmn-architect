@@ -1,46 +1,66 @@
 
 
-<mat-toolbar>
+<mat-toolbar color="primary">
   BPMN Architect
   <div class="app-spacer"></div>
-  <button mat-raised-button color="warn" (click)="doClear()">
-    Delete everything
-  </button>
   <ng-container [ngTemplateOutlet]="defaultButtons"></ng-container>  
 </mat-toolbar>
 
 <ng-template #defaultButtons let-node="node">
-  <button mat-icon-button color="primary"
-          *ngIf="node" (click)="doEditNode(node)" 
+  <div attr.style="padding-right: {{node ? '16px' : ''}};">
+    <button *ngIf="node"
+          mat-icon-button
+          (click)="doEditNode(node)" 
           attr.aria-label="edit  {{node.name}}"
           matTooltip="Edit '{{node.name}}'" [disabled]="this.editElement">
-    <mat-icon fontIcon="edit"></mat-icon>
-  </button>
+      <mat-icon fontIcon="edit"></mat-icon>
+    </button>
 
-  <button mat-icon-button [matTooltip]="node ? 'Add Folder to \'' + node.name + '\'' : 'Add Folder'"
-          [attr.aria-label]="node ? 'Add subfolder to {{node.name}}' : 'add folder'"
-          *ngIf="isFolder(node) || !node"
-          [disabled]="this.editElement" (click)="doAddFolder(node)">
-    <mat-icon fontIcon="create_new_folder"></mat-icon>
-  </button>
+    <button *ngIf="!node"
+            mat-icon-button 
+            routerLink="/diagrams/new"
+            matTooltip="New Diagram"
+            [disabled]="this.editElement">
+      <mat-icon fontIcon="add_chart"></mat-icon>
+    </button>
 
-  <button mat-icon-button color="primary" routerLink="/diagrams/new" 
-          [queryParams]="toQueryParams(node)" 
-          [matTooltip]="node ? 'Add Diagram to \'' + node.name + '\'' : 'Add Diagram'"
-          [disabled]="this.editElement" *ngIf="isFolder(node) || !node" >
-    <mat-icon fontIcon="add_chart"></mat-icon>
-  </button>
-  <button mat-icon-button 
-          *ngIf="node && node.source?.id"
-          [attr.aria-label]="'Delete ' + node.name"
-          [disabled]="this.editElement" 
-          color="warn" 
-          (click)="doDelete(node)"
-          matTooltip="Delete '{{ node.name }}'">
-    <mat-icon fontIcon="delete"></mat-icon>
-  </button>
+    <button [disabled]="this.editElement" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
 
-  <ng-content></ng-content>
+      <button mat-menu-item
+              *ngIf="isFolder(node)"
+              routerLink="/diagrams/new" 
+              [queryParams]="toQueryParams(node)"
+              [disabled]="this.editElement">
+        <mat-icon fontIcon="add_chart"></mat-icon>
+        Add diagram to '{{ node.name }}'
+      </button>
+
+      <button *ngIf="isFolder(node) || !node"
+              mat-menu-item
+              (click)="doAddFolder(node)">
+        <mat-icon fontIcon="create_new_folder"></mat-icon>
+        {{ node ? 'Add folder to \'' + node.name + '\'' : 'Add folder' }}
+      </button>
+
+
+      <mat-divider></mat-divider>
+      <button *ngIf="node && node.source?.id" 
+            mat-menu-item
+            [attr.aria-label]="'Delete ' + node.name"
+            (click)="doDelete(node)">
+        <mat-icon color="warn"  fontIcon="delete"></mat-icon>
+        Delete '{{ node.name }}'
+      </button>
+      <button *ngIf="!node" mat-menu-item (click)="doClear()">
+        <mat-icon color="warn">delete_forever</mat-icon>
+        Delete everything
+      </button>
+    </mat-menu>
+  </div>
+  
 </ng-template>
 
 <ng-template #nameAndDate let-node="node">

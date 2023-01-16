@@ -9,8 +9,6 @@ import { ConfirmDialogComponent, ConfirmDialogModel } from 'src/app/shared/confi
 import { BrowseDiagramDataSource, FlatTreeNode } from './browse-diagram-data-source';
 
 
-
-
 @Component({
   selector: 'app-browse-digram-page',
   templateUrl: './browse-digram-page.component.html',
@@ -32,7 +30,7 @@ export class BrowseDigramPageComponent implements OnInit {
     private diagramService: BpmnDiagramService, 
     private db: AppDbService) {
 
-    this.ds = new BrowseDiagramDataSource(elementService, diagramService, db);
+    this.ds = new BrowseDiagramDataSource(elementService);
   }
 
   ngOnInit() {

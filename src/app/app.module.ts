@@ -29,6 +29,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTooltipModule,
     MatCardModule,
     MatDialogModule,
+    MatMenuModule,
+    MatDividerModule,
+
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
