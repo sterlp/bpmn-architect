@@ -16,14 +16,20 @@
         <mat-icon fontIcon="save"></mat-icon>
         Save
     </button>
-    <button mat-raised-button (click)="doUndo()" [disabled]="!diagram.id">
-        <mat-icon fontIcon="undo"></mat-icon>
-        Undo
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open menu">
+        <mat-icon>more_vert</mat-icon>
     </button>
-    <button mat-raised-button (click)="doDownload()">
-        <mat-icon fontIcon="download"></mat-icon>
-        Download
-    </button>
-    <app-upload-button (importDone)="onUpload($event)"></app-upload-button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="doUndo()" [disabled]="!diagram.id">
+            <mat-icon fontIcon="undo"></mat-icon>
+            Undo
+        </button>
+        <button mat-menu-item (click)="doDownload()">
+            <mat-icon fontIcon="download"></mat-icon>
+            Download
+        </button>
+        <app-upload-button (importDone)="onUpload($event)"></app-upload-button>
+    </mat-menu>
 </mat-toolbar>
 <app-bpmn-modeler></app-bpmn-modeler>

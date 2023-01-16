@@ -21,7 +21,7 @@
             routerLink="/diagrams/new"
             matTooltip="New Diagram"
             [disabled]="this.editElement">
-      <mat-icon fontIcon="add_chart"></mat-icon>
+      <mat-icon fontIcon="account_tree"></mat-icon>
     </button>
 
     <button [disabled]="this.editElement" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open menu">
@@ -34,7 +34,7 @@
               routerLink="/diagrams/new" 
               [queryParams]="toQueryParams(node)"
               [disabled]="this.editElement">
-        <mat-icon fontIcon="add_chart"></mat-icon>
+        <mat-icon fontIcon="account_tree"></mat-icon>
         Add diagram to '{{ node.name }}'
       </button>
 
@@ -45,8 +45,8 @@
         {{ node ? 'Add folder to \'' + node.name + '\'' : 'Add folder' }}
       </button>
 
-
       <mat-divider></mat-divider>
+
       <button *ngIf="node && node.source?.id" 
             mat-menu-item
             [attr.aria-label]="'Delete ' + node.name"

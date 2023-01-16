@@ -1,6 +1,6 @@
 <input type="file" class="file-input" accept=".bpmn" style="display:none"
        (change)="onFileSelected($event)" #fileUpload>
-<button mat-raised-button (click)="fileUpload.click()">
+<button mat-menu-item (click)="fileUpload.click()">
     <mat-icon fontIcon="upload"></mat-icon>
     Upload File
 </button>
