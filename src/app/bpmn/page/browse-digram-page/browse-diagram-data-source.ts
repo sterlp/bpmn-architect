@@ -45,10 +45,6 @@ export class BrowseDiagramDataSource {
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   }
 
-  remove(element: BpmnElement) {
-    this.dataSource.data = this.dataSource.data.filter(el => el != element || el.id !== element.id);
-  }
-
   /** Transform the data to something the tree can read. */
   private _nodeTransformer(node: BpmnElement, level: number): FlatTreeNode {
     let r = this.flatTreeNodeCache.get(node);
