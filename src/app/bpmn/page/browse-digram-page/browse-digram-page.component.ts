@@ -46,7 +46,6 @@ export class BrowseDigramPageComponent implements OnInit {
     this.parent = undefined;
     this.editElement = undefined;
     this.ds.removeElementsWithoutId();
-    
   };
 
   isEditNode = (_: number, node: FlatTreeNode): boolean => {
@@ -105,7 +104,7 @@ export class BrowseDigramPageComponent implements OnInit {
     await this.ds.doReload();
   }
 
-  async doSaveEnditElement(): Promise<void> {
+  async doSaveElement(): Promise<void> {
     if (this.editElement && this.editElement.name && this.editElement.name.length > 0) {
       await this.elementService.save(this.editElement);
       this.editElement = undefined;
@@ -127,9 +126,5 @@ export class BrowseDigramPageComponent implements OnInit {
       }
     });
     
-  }
-
-  isFolderWithActions(node: FlatTreeNode) {
-    return node.source.id && node.source.type == BpmnType.folder;
   }
 }

@@ -117,7 +117,7 @@ describe('BrowseDigramPageComponent', () => {
 
     // WHEN
     await sendInput(el, 'folder 1');
-    await component.doSaveEnditElement();
+    await component.doSaveElement();
     fixture.detectChanges();
     // THEN
     expect(component.editElement).toBeFalsy();

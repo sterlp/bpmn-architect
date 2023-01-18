@@ -24,16 +24,15 @@
       <mat-icon fontIcon="account_tree"></mat-icon>
     </button>
 
-    <button [disabled]="this.editElement" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open menu">
+    <button [disabled]="this.editElement" 
+            mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open menu">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-
       <button mat-menu-item
               *ngIf="isFolder(node)"
               routerLink="/diagrams/new" 
-              [queryParams]="toQueryParams(node)"
-              [disabled]="this.editElement">
+              [queryParams]="toQueryParams(node)">
         <mat-icon fontIcon="account_tree"></mat-icon>
         Add diagram to '{{ node.name }}'
       </button>
@@ -43,6 +42,13 @@
               (click)="doAddFolder(node)">
         <mat-icon fontIcon="create_new_folder"></mat-icon>
         {{ node ? 'Add folder to \'' + node.name + '\'' : 'Add folder' }}
+      </button>
+
+      <button *ngIf="node"
+              mat-menu-item
+              (click)="doAddFolder(node)">
+        <mat-icon fontIcon="move_down"></mat-icon>
+        {{ 'Move \'' + node.name + '\'' }}
       </button>
 
       <mat-divider></mat-divider>
@@ -83,10 +89,10 @@
   <mat-tree-node *matTreeNodeDef="let node; when: isEditNode" matTreeNodePadding>
     <button mat-icon-button disabled></button>
     <mat-form-field *ngIf="editElement">
-      <input #inputName aria-label="enter folder name" matInput (keydown.enter)="doSaveEnditElement()" [(ngModel)]="editElement!.name">
+      <input #inputName aria-label="enter folder name" matInput (keydown.enter)="doSaveElement()" [(ngModel)]="editElement!.name">
     </mat-form-field>
     <div class="app-action-bar">
-      <button aria-label="save folder name" mat-raised-button color="primary" (click)="doSaveEnditElement()" [disabled]="editElement?.name == ''">
+      <button aria-label="save folder name" mat-raised-button color="primary" (click)="doSaveElement()" [disabled]="editElement?.name == ''">
         <mat-icon fontIcon="save"></mat-icon>
         {{editElement?.id ? 'Save' : 'Create'}}
       </button>
