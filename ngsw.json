@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1674039946635,
+  "timestamp": 1674040373212,
   "index": "/bpmn-architect/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,11 @@
       "urls": [
         "/bpmn-architect/favicon.ico",
         "/bpmn-architect/index.html",
-        "/bpmn-architect/main.b72ad27e7cb9a30d.js",
+        "/bpmn-architect/main.863efe260ddceb16.js",
         "/bpmn-architect/manifest.webmanifest",
-        "/bpmn-architect/polyfills.e03831478276e0d4.js",
+        "/bpmn-architect/polyfills.4f4d5717a1ce1112.js",
         "/bpmn-architect/runtime.03d6c579193ab7ab.js",
-        "/bpmn-architect/styles.af843bd337ba8dac.css"
+        "/bpmn-architect/styles.52c463b3f1c0886c.css"
       ],
       "patterns": []
     },
@@ -70,8 +70,8 @@
     "/bpmn-architect/bpmn.b5c9250d7d4947c4.ttf": "39130f7f14ba322822515a264447c8666f0e02b8",
     "/bpmn-architect/bpmn.e9e7d07618d46ca6.woff": "5e29f44bf8cfde06a84de557297a250fbb3cb322",
     "/bpmn-architect/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/bpmn-architect/index.html": "c5b191abbeb22d94ce9d9442e91368c3d1eb8328",
-    "/bpmn-architect/main.b72ad27e7cb9a30d.js": "243a7387815503785d88b5ca1edbb1204eb087f5",
+    "/bpmn-architect/index.html": "cca8cc9034093a9e2feebf1cfbc216b6a8553f08",
+    "/bpmn-architect/main.863efe260ddceb16.js": "6a593a2ae28a6e17afb65b7f057ec88c2f741b23",
     "/bpmn-architect/manifest.webmanifest": "d60d0329e815847fa3166f3de72c87eaaffb1105",
     "/bpmn-architect/material-icons-outlined.78a93b2079680a08.woff": "b52ccd8fca4199d257b2a9fe377db29862f2853e",
     "/bpmn-architect/material-icons-outlined.f86cb7b0aa53f0fe.woff2": "2f9e28ab559782402f27332633c843c40209d95a",
@@ -83,9 +83,9 @@
     "/bpmn-architect/material-icons-two-tone.675bd578bd14533e.woff2": "296ff0bff395a77c2e33e7e31fffe73980bd93cf",
     "/bpmn-architect/material-icons.4ad034d2c499d9b6.woff": "e4bb7c1e40d3febee58df963db276b2bf68c117b",
     "/bpmn-architect/material-icons.59322316b3fd6063.woff2": "0bc0c675480d94ec7e8609dda6227f88c5d08d2c",
-    "/bpmn-architect/polyfills.e03831478276e0d4.js": "eb5812c6afa59de016b290f8b70eea391c5cd10a",
+    "/bpmn-architect/polyfills.4f4d5717a1ce1112.js": "024f9f5c3cb72df9a61e2b9fd982af787c34c6c7",
     "/bpmn-architect/runtime.03d6c579193ab7ab.js": "1e2bea9526a6333903c6b653dbe2eb9eb9ab3f25",
-    "/bpmn-architect/styles.af843bd337ba8dac.css": "d418f3beac7fa864dc374298254a7eb64c0f7531"
+    "/bpmn-architect/styles.52c463b3f1c0886c.css": "921f141d6fd7bf7d044f3713738c1cff829b3162"
   },
   "navigationUrls": [
     {
