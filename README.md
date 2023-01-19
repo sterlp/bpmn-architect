@@ -17,6 +17,7 @@ You can einter install the app into your browser or just add a bookmark to the l
 - [x] add storage
 - [x] add import and export
 - [x] add links between diagrams by name
+- [x] add ability to move elements in the tree
 - [ ] allow custom element which descriptions, e.g. DB, Service, etc.
 - [ ] allow generic links between elements and diagrams
 
