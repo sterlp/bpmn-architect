@@ -6,12 +6,22 @@ import { AppDbService } from './app-db.service';
   providedIn: 'root'
 })
 export class BpmnElementService {
+  
+  moveElement(source: BpmnElement, id: number | undefined): Promise<BpmnElement> {
+    source.parentId = id;
+    return this.save(source);
+  }
 
   async findByType(type: BpmnType): Promise<BpmnElement[]> {
     return this.db.bpmnElements.where({type}).sortBy('name');
   }
   async findByNameAndType(name: string, type: BpmnType): Promise<BpmnElement | undefined> {
     return this.db.bpmnElements.where({name, type}).first();
+  }
+  async searchByNameAndType(name: string, type: BpmnType = BpmnType.folder): Promise<BpmnElement[]> {
+    return this.db.bpmnElements.where('name').startsWithIgnoreCase(name)
+               .and(e => e.type === type)
+               .sortBy('name');
   }
   
   async getLastChangedElement(): Promise<BpmnElement[]> {

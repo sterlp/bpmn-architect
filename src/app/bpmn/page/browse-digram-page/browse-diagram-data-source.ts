@@ -1,8 +1,6 @@
 import { FlatTreeControl } from "@angular/cdk/tree";
 import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree";
 import { BpmnElement, BpmnType } from "../../model/diagram-model";
-import { AppDbService } from "../../service/app-db.service";
-import { BpmnDiagramService } from "../../service/bpmn-diagram.service";
 import { BpmnElementService } from "../../service/bpmn-element.service";
 
 export interface FlatTreeNode {
@@ -15,7 +13,7 @@ export interface FlatTreeNode {
 }
 
 export class BrowseDiagramDataSource {
-
+  
   /** The TreeControl controls the expand/collapse state of tree nodes.  */
   treeControl: FlatTreeControl<FlatTreeNode>;
 
@@ -26,8 +24,6 @@ export class BrowseDiagramDataSource {
   dataSource: MatTreeFlatDataSource<BpmnElement, FlatTreeNode>;
 
   public readonly flatTreeNodeCache = new Map<BpmnElement, FlatTreeNode>();
-  private readonly elementMap = new Map<number, BpmnElement>();
-
 
   constructor(private elementService: BpmnElementService) {
 
@@ -73,7 +69,6 @@ export class BrowseDiagramDataSource {
 
   async doReload(): Promise<void> {
     this.flatTreeNodeCache.clear();
-    this.elementMap.clear();
 
     const elements = await this.elementService.findAll();
     const indexMap = new Map<number, BpmnElement>();

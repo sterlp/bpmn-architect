@@ -4,9 +4,10 @@ import { BpmnElementService } from '../../service/bpmn-element.service';
 import { BpmnDiagramService } from '../../service/bpmn-diagram.service';
 import { AppDbService } from '../../service/app-db.service';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmDialogComponent, ConfirmDialogModel } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { BrowseDiagramDataSource, FlatTreeNode } from './browse-diagram-data-source';
+import { MoveElementDialogComponent } from '../../widget/move-element-dialog/move-element-dialog.component';
 
 
 @Component({
@@ -88,7 +89,22 @@ export class BrowseDigramPageComponent implements OnInit {
   private _focusInput() {
     setTimeout(() => {
       if (this.inputName) this.inputName.nativeElement.focus();
-    },1);
+    }, 1);
+  }
+
+  doMoveElement(node: FlatTreeNode) {
+    const ref: MatDialogRef<MoveElementDialogComponent, BpmnElement> = this.dialog.open(
+      MoveElementDialogComponent, {
+      data: {element: node.source},
+      width: '80%',
+    });
+    ref.afterClosed().subscribe(async (newParent) => {
+      if (newParent) {
+        await this.elementService.moveElement(node.source, newParent.id);
+        await this.ds.doReload();
+      }
+    });
+    
   }
 
   doDelete(node: FlatTreeNode) {

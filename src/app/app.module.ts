@@ -12,6 +12,7 @@ import { EditDiagramPageComponent } from './bpmn/page/edit-diagram-page/edit-dia
 import { UploadButtonComponent } from './shared/upload-button/upload-button.component';
 import { BrowseDigramPageComponent } from './bpmn/page/browse-digram-page/browse-digram-page.component';
 
+import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -19,6 +20,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -31,6 +33,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { MoveElementDialogComponent } from './bpmn/widget/move-element-dialog/move-element-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,7 @@ import { MatDividerModule } from '@angular/material/divider';
     BrowseDigramPageComponent,
     BpmnElementIconComponent,
     ConfirmDialogComponent,
+    MoveElementDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +55,7 @@ import { MatDividerModule } from '@angular/material/divider';
     BrowserAnimationsModule,
     LayoutModule,
     
+    MatRippleModule,
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
@@ -58,6 +63,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCheckboxModule,
     MatTreeModule,
     MatTableModule,
     MatBadgeModule,

@@ -46,7 +46,7 @@
 
       <button *ngIf="node"
               mat-menu-item
-              (click)="doAddFolder(node)">
+              (click)="doMoveElement(node)">
         <mat-icon fontIcon="move_down"></mat-icon>
         {{ 'Move \'' + node.name + '\'' }}
       </button>

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { BpmnType, newElement } from '../model/diagram-model';
+import { BpmnElement, BpmnType, newElement } from '../model/diagram-model';
 
 import { BpmnElementService } from './bpmn-element.service';
 
@@ -38,5 +38,19 @@ describe('FolderService', () => {
     expect((await service.get(f2.id!))?.parentId).toBe(0);
     expect((await service.get(d1.id!))?.parentId).toBe(0);
     expect(((await service.count()))).toBe(2);
+  });
+
+  it('move element should update parent', async () => {
+    // GIVEN
+    let f1: BpmnElement | undefined = await service.save(newElement('F1', BpmnType.folder));
+    const f2 = await service.save(newElement('F2', BpmnType.folder));
+
+    // WHEN
+    await service.moveElement(f1, f2.id);
+
+    // THEN
+    f1 = await service.get(f1.id!);
+    expect( f1?.parentId ).toBe(f2.id);
+
   });
 });
