@@ -3,11 +3,10 @@
 <mat-toolbar color="primary">
   BPMN Architect
   <div class="app-spacer"></div>
-  <ng-container [ngTemplateOutlet]="defaultButtons"></ng-container>  
 </mat-toolbar>
 
 <ng-template #defaultButtons let-node="node">
-  <div attr.style="padding-right: {{node ? '16px' : ''}};">
+  <div>
     <button *ngIf="node"
           mat-icon-button
           (click)="doEditNode(node)" 
@@ -69,53 +68,59 @@
   
 </ng-template>
 
-<ng-template #nameAndDate let-node="node">
-  <app-bpmn-element-icon class="mr-1" [element]="node"></app-bpmn-element-icon>
-  {{node.name}}
-  <div class="app-spacer"></div>
-  {{node.updateDate | date:'short'}}
-  <div class="app-spacer"></div>
-</ng-template>
+<table mat-table [dataSource]="ds.dataSource" class="mat-elevation-z8">
+  
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> 
+      <span [style.paddingLeft.px]="48"> Name </span>
+    </th>
+    <td mat-cell *matCellDef="let data;">
+      <div class="app-flex">
+        <ng-container *ngIf="!isEditNode(0, data)">
+          <button mat-icon-button 
+                  [style.visibility]="!data.expandable ? 'hidden' : ''"
+                  [style.marginLeft.px]="data.level * 32"
+                  (click)="ds.treeControl.toggle(data)">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{ds.treeControl.isExpanded(data) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          <app-bpmn-element-icon class="mr-2" [element]="data"></app-bpmn-element-icon>
+          {{data.name}}
+        </ng-container>
+        <ng-container *ngIf="isEditNode(0, data)">
+          <button mat-icon-button disabled></button>
+          <mat-form-field *ngIf="editElement">
+            <input #inputName aria-label="enter folder name" matInput (keydown.enter)="doSaveElement()" [(ngModel)]="editElement!.name">
+          </mat-form-field>
+          <div class="app-action-bar">
+            <button aria-label="save folder name" mat-raised-button color="primary" (click)="doSaveElement()" [disabled]="editElement?.name == ''">
+              <mat-icon fontIcon="save"></mat-icon>
+              {{editElement?.id ? 'Save' : 'Create'}}
+            </button>
+            <button aria-label="cancel folder name change" mat-raised-button (click)="cancelEdit()">
+              Cancel
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </td>
+  </ng-container> 
 
-<mat-tree [dataSource]="ds.dataSource" [treeControl]="ds.treeControl">
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef> Last update </th>
+    <td mat-cell *matCellDef="let data"> {{data.updateDate | date:'short'}} </td>
+  </ng-container>
 
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-    <button mat-icon-button disabled></button>
-    <ng-container [ngTemplateOutlet]="nameAndDate" [ngTemplateOutletContext]="{node}"></ng-container>
-    <div class="app-spacer"></div>
-    <ng-container [ngTemplateOutlet]="defaultButtons" [ngTemplateOutletContext]="{node}"></ng-container>
-  </mat-tree-node>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef style="text-align: right;">  
+      <ng-container [ngTemplateOutlet]="defaultButtons"></ng-container>  
+    </th>
+    <td mat-cell *matCellDef="let data" style="text-align: right;"> 
+      <ng-container [ngTemplateOutlet]="defaultButtons" [ngTemplateOutletContext]="{node: data}"></ng-container>
+    </td>
+  </ng-container> 
 
-  <mat-tree-node *matTreeNodeDef="let node; when: isEditNode" matTreeNodePadding>
-    <button mat-icon-button disabled></button>
-    <mat-form-field *ngIf="editElement">
-      <input #inputName aria-label="enter folder name" matInput (keydown.enter)="doSaveElement()" [(ngModel)]="editElement!.name">
-    </mat-form-field>
-    <div class="app-action-bar">
-      <button aria-label="save folder name" mat-raised-button color="primary" (click)="doSaveElement()" [disabled]="editElement?.name == ''">
-        <mat-icon fontIcon="save"></mat-icon>
-        {{editElement?.id ? 'Save' : 'Create'}}
-      </button>
-      <button aria-label="cancel folder name change" mat-raised-button (click)="cancelEdit()">
-        Cancel
-      </button>
-    </div>
-  </mat-tree-node>
-
-  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-    <button mat-icon-button
-            [attr.aria-label]="'Toggle ' + node.name" matTreeNodeToggle>
-      <mat-icon class="mat-icon-rtl-mirror">
-        {{ds.treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-      </mat-icon>
-    </button>
-    <ng-container [ngTemplateOutlet]="nameAndDate" [ngTemplateOutletContext]="{node}"></ng-container>
-    <ng-container [ngTemplateOutlet]="defaultButtons" [ngTemplateOutletContext]="{node}"></ng-container>
-  </mat-tree-node>
-
-  <mat-tree-node *matTreeNodeDef="let node; when: isEmptyFolder" matTreeNodePadding>
-    <button mat-icon-button disabled></button>
-    <ng-container [ngTemplateOutlet]="nameAndDate" [ngTemplateOutletContext]="{node}"></ng-container>
-    <ng-container [ngTemplateOutlet]="defaultButtons" [ngTemplateOutletContext]="{node}"></ng-container>
-  </mat-tree-node>
-</mat-tree>  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

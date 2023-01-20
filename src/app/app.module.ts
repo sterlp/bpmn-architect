@@ -21,7 +21,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatTreeModule } from '@angular/material/tree';
 import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -64,7 +63,6 @@ import { MoveElementDialogComponent } from './bpmn/widget/move-element-dialog/mo
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    MatTreeModule,
     MatTableModule,
     MatBadgeModule,
     MatTooltipModule,

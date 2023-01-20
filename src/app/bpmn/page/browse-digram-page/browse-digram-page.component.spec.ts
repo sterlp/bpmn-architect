@@ -12,7 +12,6 @@ import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatTreeModule } from '@angular/material/tree';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -45,7 +44,6 @@ describe('BrowseDigramPageComponent', () => {
         MatIconModule,
         MatInputModule,
         MatTableModule,
-        MatTreeModule,
         MatToolbarModule,
         MatTooltipModule,
         MatDialogModule,
@@ -81,9 +79,9 @@ describe('BrowseDigramPageComponent', () => {
     fixture.detectChanges();
 
     // THEN
-    expect(fixture.debugElement.query(findByInnerText('Folder 1', 'mat-tree-node'))).withContext('Folder 1').toBeTruthy();    
-    expect(fixture.debugElement.query(findByInnerText('Folder 2', 'mat-tree-node'))).withContext('Folder 2').toBeTruthy();    
-    expect(fixture.debugElement.query(findByInnerText('Folder 3', 'mat-tree-node'))).withContext('Folder 3 should not be found').toBeFalsy();
+    expect(fixture.debugElement.query(findByInnerText('Folder 1', 'td'))).withContext('Folder 1').toBeTruthy();    
+    expect(fixture.debugElement.query(findByInnerText('Folder 2', 'td'))).withContext('Folder 2').toBeTruthy();    
+    expect(fixture.debugElement.query(findByInnerText('Folder 3', 'td'))).withContext('Folder 3 should not be found').toBeFalsy();
   });
 
   
@@ -99,9 +97,9 @@ describe('BrowseDigramPageComponent', () => {
     fixture.detectChanges();
 
     // THEN
-    expect(fixture.debugElement.query(findByInnerText('D1', 'mat-tree-node'))).withContext('D1 should be found').toBeTruthy();
+    expect(fixture.debugElement.query(findByInnerText('D1', 'td'))).withContext('D1 should be found').toBeTruthy();
     // should auto expand the node!
-    expect(fixture.debugElement.query(findByInnerText('D2', 'mat-tree-node'))).toBeTruthy();
+    expect(fixture.debugElement.query(findByInnerText('D2', 'td'))).toBeTruthy();
   });
 
   it('new folder and edit folder name should work', async () => {
@@ -121,19 +119,20 @@ describe('BrowseDigramPageComponent', () => {
     fixture.detectChanges();
     // THEN
     expect(component.editElement).toBeFalsy();
-    expect(fixture.debugElement.query(findByInnerText('folder 1', 'mat-tree-node'))).toBeTruthy();
+    expect(fixture.debugElement.query(findByInnerText('folder 1', 'td'))).toBeTruthy();
   });
 
   it('delete folder should remove the folder', async () => {
     // GIVEN
     const d1 = await elementService.save(newElement('folder 1'));
     await component.ds.doReload();
-    expect(fixture.debugElement.query(findByInnerText('folder 1', 'mat-tree-node'))).toBeTruthy();
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(findByInnerText('folder 1', 'td'))).toBeTruthy();
     // WHEN
     await component._deleteElement(d1);
     fixture.detectChanges();
     // THEN
-    expect(fixture.debugElement.query(findByInnerText('folder 1', 'mat-tree-node'))).toBeFalsy();
+    expect(fixture.debugElement.query(findByInnerText('folder 1', 'td'))).toBeFalsy();
   });
 
   async function sendInput(input: any, value: string): Promise<any> {

@@ -19,6 +19,8 @@ export class BrowseDigramPageComponent implements OnInit {
 
   @ViewChild('inputName') inputName?: ElementRef;
 
+  readonly displayedColumns = ['name', 'date', 'actions']
+
   editElement?: BpmnElement;
   parent?: BpmnElement;
 

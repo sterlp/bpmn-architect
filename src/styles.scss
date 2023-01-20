@@ -18,11 +18,28 @@ body {
     width: 100%;
 }
 
+.app-right {
+    float: right!important;
+}
+
+.app-flex {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    word-wrap: break-word;
+}
+
 .ml-1 {
     margin-left: 0.25rem !important;
 }
 .mr-1 {
     margin-right: 0.25rem !important;
+}
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+.mr-2 {
+    margin-right: 0.5rem !important;
 }
 
 .mat-toolbar {
