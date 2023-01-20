@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1674119583379,
+  "timestamp": 1674213134111,
   "index": "/bpmn-architect/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,11 @@
       "urls": [
         "/bpmn-architect/favicon.ico",
         "/bpmn-architect/index.html",
-        "/bpmn-architect/main.c26dd00c2f9103af.js",
+        "/bpmn-architect/main.483c01ab9e060ae8.js",
         "/bpmn-architect/manifest.webmanifest",
         "/bpmn-architect/polyfills.4f4d5717a1ce1112.js",
         "/bpmn-architect/runtime.03d6c579193ab7ab.js",
-        "/bpmn-architect/styles.7642eaac14abd0c3.css"
+        "/bpmn-architect/styles.0d41947ea546e9ea.css"
       ],
       "patterns": []
     },
@@ -70,8 +70,8 @@
     "/bpmn-architect/bpmn.b5c9250d7d4947c4.ttf": "39130f7f14ba322822515a264447c8666f0e02b8",
     "/bpmn-architect/bpmn.e9e7d07618d46ca6.woff": "5e29f44bf8cfde06a84de557297a250fbb3cb322",
     "/bpmn-architect/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/bpmn-architect/index.html": "d47b99744956872b94418e2979e8c3995a3038ae",
-    "/bpmn-architect/main.c26dd00c2f9103af.js": "5ca2acc37c614c30e7c92b7c7faee2a5732e1210",
+    "/bpmn-architect/index.html": "ba48a012846656450d48ca10632d5e96550c7f12",
+    "/bpmn-architect/main.483c01ab9e060ae8.js": "dceec44bb1dfb86a868f68c9718316bd523b5dd9",
     "/bpmn-architect/manifest.webmanifest": "d60d0329e815847fa3166f3de72c87eaaffb1105",
     "/bpmn-architect/material-icons-outlined.78a93b2079680a08.woff": "b52ccd8fca4199d257b2a9fe377db29862f2853e",
     "/bpmn-architect/material-icons-outlined.f86cb7b0aa53f0fe.woff2": "2f9e28ab559782402f27332633c843c40209d95a",
@@ -85,7 +85,7 @@
     "/bpmn-architect/material-icons.59322316b3fd6063.woff2": "0bc0c675480d94ec7e8609dda6227f88c5d08d2c",
     "/bpmn-architect/polyfills.4f4d5717a1ce1112.js": "024f9f5c3cb72df9a61e2b9fd982af787c34c6c7",
     "/bpmn-architect/runtime.03d6c579193ab7ab.js": "1e2bea9526a6333903c6b653dbe2eb9eb9ab3f25",
-    "/bpmn-architect/styles.7642eaac14abd0c3.css": "e587ce0919ac87347cad8d6d9444dbff87b25fbf"
+    "/bpmn-architect/styles.0d41947ea546e9ea.css": "71df89b6b0c0950e0017ddf3d92a3253ec9306d1"
   },
   "navigationUrls": [
     {
