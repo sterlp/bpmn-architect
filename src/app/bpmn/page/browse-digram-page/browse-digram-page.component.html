@@ -29,15 +29,14 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item
-              *ngIf="isFolder(node)"
+              *ngIf="node"
               routerLink="/diagrams/new" 
               [queryParams]="toQueryParams(node)">
         <mat-icon fontIcon="account_tree"></mat-icon>
         Add diagram to '{{ node.name }}'
       </button>
 
-      <button *ngIf="isFolder(node) || !node"
-              mat-menu-item
+      <button mat-menu-item
               (click)="doAddFolder(node)">
         <mat-icon fontIcon="create_new_folder"></mat-icon>
         {{ node ? 'Add folder to \'' + node.name + '\'' : 'Add folder' }}

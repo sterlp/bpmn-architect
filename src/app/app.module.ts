@@ -4,6 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 
+import localeDe from '@angular/common/locales/de';
+import localeEn from '@angular/common/locales/en';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuLayoutComponent } from './menu-layout/menu-layout.component';
@@ -81,7 +86,13 @@ import { MoveElementDialogComponent } from './bpmn/widget/move-element-dialog/mo
   providers: [
     Location, 
     {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: LOCALE_ID, useValue: navigator.language ?? 'en' }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    registerLocaleData(localeDe, 'de');
+    registerLocaleData(localeEn, 'en');
+  }
+ }

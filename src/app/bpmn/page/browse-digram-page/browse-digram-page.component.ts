@@ -67,10 +67,14 @@ export class BrowseDigramPageComponent implements OnInit {
     if (node.type == BpmnType.diagram) {
       this.router.navigate(['/diagrams', node.source.id || 'new']);
     } else {
-      this.editElement = node.source;
-      this.ds.rerenderAllElements();
-      this._focusInput();
+      this._doEditFolderNode(node);
     }
+  }
+
+  private _doEditFolderNode(node: FlatTreeNode) {
+    this.editElement = node.source;
+    this.ds.rerenderAllElements();
+    this._focusInput();
   }
 
   doAddFolder(node?: FlatTreeNode) {
@@ -132,7 +136,6 @@ export class BrowseDigramPageComponent implements OnInit {
 
   hasChild = (_: number, node: FlatTreeNode) => node.expandable;
   isEmptyFolder = (_: number, node: FlatTreeNode) => !node.expandable && node.source && node.source.type === BpmnType.folder;
-  isFolder = (node?: FlatTreeNode) => node &&  node.type === BpmnType.folder;
 
   async doClear() {
     this.dialog.open(ConfirmDialogComponent, {

@@ -6,3 +6,7 @@
 .mat-tree-node {
   border-bottom: rgba(0, 0, 0, 0.12) 1px solid;
 }
+
+tr:hover td {
+  background-color: rgba(0, 0, 0, 0.04);
+}
